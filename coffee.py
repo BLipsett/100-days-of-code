@@ -31,21 +31,41 @@ resources = {
 }
 
 def checkSource(user_Choice):
-  print(user_Choice)
-  
+  supply = (MENU[user_Choice]["ingredients"])
+
+  if supply["water"] >= resources["water"]:
+      print("not enough water")
+  elif supply["coffee"] >= resources["coffee"]:
+      print("not enough coffee")
+  elif supply["milk"] >= resources["milk"]:
+      print("not enough milk")
+  else:
+      print("drink can be made")
+      deplete_resource(user_Choice)
+
+def deplete_resource(user_choice):
+  supply = (MENU[user_choice]["ingredients"])
+  resources["water"] -= supply["water"]
+  resources["milk"] -= supply["milk"]
+  resources["coffee"] -= supply["coffee"]
+  print(resources)
 
 
 #TODO ask user for drink order
+latte = "latte"
+espress = "espresso"
+cap = "cappuccino"
 
 def start_Order():
   user_choice = input("What would you like? (espresso/latte/cappuccino):")
   print("you chose " + user_choice)
 
-  if user_choice != "espressso" or "latte" or "cappuccino": 
-    print("please make a choice from the list")
-  else:
+  if user_choice == "latte": 
     print("take a " + user_choice)
-    # start_Order()
+    checkSource(user_choice)
+  else:
+    print("please make a choice from the list")
+    start_Order()
 
 
 start_Order()
